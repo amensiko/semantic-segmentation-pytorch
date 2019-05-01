@@ -287,11 +287,11 @@ if __name__ == '__main__':
         print("{:16} {}".format(key, val))
 
     # Parse gpu ids
-    all_gpus = parse_devices(args.gpus)
+    all_gpus = []#parse_devices(args.gpus)
     all_gpus = [x.replace('gpu', '') for x in all_gpus]
     args.gpus = [int(x) for x in all_gpus]
-    num_gpus = len(args.gpus)
-    args.batch_size = num_gpus * args.batch_size_per_gpu
+    num_gpus = 0#len(args.gpus)
+    args.batch_size = args.batch_size_per_gpu#num_gpus * args.batch_size_per_gpu
 
     args.max_iters = args.epoch_iters * args.num_epoch
     args.running_lr_encoder = args.lr_encoder

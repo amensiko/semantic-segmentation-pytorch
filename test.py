@@ -38,7 +38,7 @@ def visualize_result(data, pred, args):
 def test(segmentation_module, loader, args):
     segmentation_module.eval()
 
-    pbar = tqdm(total=len(loader))
+    #pbar = tqdm(total=len(loader))
     for batch_data in loader:
         # process data
         batch_data = batch_data[0]
@@ -69,11 +69,12 @@ def test(segmentation_module, loader, args):
             (batch_data['img_ori'], batch_data['info']),
             pred, args)
 
-        pbar.update(1)
+        #pbar.update(1)
 
 
 def main(args):
-    torch.cuda.set_device(args.gpu)
+    #torch.cuda.set_device(args.gpu) #AttributeError: module 'torch._C' has no attribute '_cuda_setDevice'
+    #torch._C._cuda_setDevice(-1)
 
     # Network Builders
     builder = ModelBuilder()
@@ -105,7 +106,8 @@ def main(args):
         num_workers=5,
         drop_last=True)
 
-    segmentation_module.cuda()
+    #segmentation_module.cuda()
+    segmentation_module.cpu()
 
     # Main loop
     test(segmentation_module, loader_test, args)
